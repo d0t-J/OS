@@ -17,33 +17,32 @@ int main()
         scanf("%d", &n);
     } while (n <= 0);
 
-    pid_t p = fork();
+    for (int i = 0; i < n; i++)
+    {
+        pid_t childP = fork();
 
-    if (p < 0)
-    {
-        printf("Fork Failed. Try Again!\n");
-        exit(1);
-    }
-    else if (p == 0)
-    {
-        printf("Child Process ID: %d\t of Parent Process ID: %d\n", getpid(), getppid());
-        for (int i = 1; i < n; i++)
+        if (childP < 0)
         {
-            pid_t childP = fork();
-            if (childP == 0)
-            {
-                printf("Child Process ID: %d\t of Parent Process ID: %d\n", getpid(), getppid());
-                exit(0);
-                continue;
-            }
+            printf("Fork Failed. Try Again!\n");
+            exit(1);
+            continue;
         }
-        exit(0);
-        return 0;
+        else if (childP == 0)
+        {
+            printf("Child Process ID: %d\t of Parent Process ID: %d\n", getpid(), getppid());
+            exit(0);
+            continue;
+        }
+        else
+        {
+            printf("Parent Process ID: %d\n", getppid());
+        }
     }
-    else if (p > 0)
+    for (int i = 0; i < n; i++)
     {
         wait(NULL);
-        printf("Parent Process ID: %d\n", getppid());
     }
+    //  printf("Parent Process ID: %d\n", getpid());
+
     return 0;
 }
