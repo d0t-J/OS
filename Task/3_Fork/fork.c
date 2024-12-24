@@ -17,6 +17,8 @@ int main()
         scanf("%d", &n);
     } while (n <= 0);
 
+    printf("Existing Parent ID: %d\n", getpid());
+
     for (int i = 0; i < n; i++)
     {
         pid_t childP = fork();
@@ -33,10 +35,11 @@ int main()
             exit(0);
             continue;
         }
-        else
-        {
-            printf("Parent Process ID: %d\n", getppid());
-        }
+        // else
+        // {
+        //     // printf(" ChID: %d   Parent Process ID: %d\n", getpid(), getppid());
+        //     printf(" ChID: %d\n ", getpid());
+        // }
     }
     for (int i = 0; i < n; i++)
     {
